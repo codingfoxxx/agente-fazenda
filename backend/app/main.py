@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .api.routes_logs import router as logs_router
+from .api.routes_consulta import router as consulta_router
 from .config import get_settings
 from .db import init_db
 
@@ -27,6 +28,7 @@ app.add_middleware(
 )
 
 app.include_router(logs_router)
+app.include_router(consulta_router)
 
 
 @app.on_event("startup")
