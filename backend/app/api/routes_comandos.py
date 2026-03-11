@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy import select
-
+from sqlalchemy import or_
 from ..db import get_db
 from ..models_comandos import ComandoPendente
 from ..schemas_comandos import (
@@ -62,7 +62,12 @@ def listar_pendentes(db: Session = Depends(get_db)):
     """
     rows = (
         db.query(ComandoPendente)
-        .filter(ComandoPendente.status == "pendente")
+        .filter(
+    or_(
+        ComandoPendente.status == "pendente",
+        ComandoPendente.status == "erro"
+    )
+)
         .order_by(ComandoPendente.created_at.asc())
         .all()
     )
