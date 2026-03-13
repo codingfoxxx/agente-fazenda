@@ -64,8 +64,8 @@ def listar_pendentes(db: Session = Depends(get_db)):
         db.query(ComandoPendente)
         .filter(
             or_(
-                ComandoPendente.status == "pendente",
-                ComandoPendente.status == "erro"
+                ComandoPendente.status == "pendente"
+               
             )
         )
         .order_by(ComandoPendente.created_at.asc())
