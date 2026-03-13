@@ -62,12 +62,7 @@ def listar_pendentes(db: Session = Depends(get_db)):
     """
     rows = (
         db.query(ComandoPendente)
-        .filter(
-            or_(
-                ComandoPendente.status == "pendente"
-               
-            )
-        )
+        .filter(ComandoPendente.status == "pendente")      
         .order_by(ComandoPendente.created_at.asc())
         .all()
     )
