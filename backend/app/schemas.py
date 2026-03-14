@@ -12,7 +12,7 @@ class LogEventIn(BaseModel):
     fazenda_origem: str | None = None
     fazenda_destino: str | None = None
     categoria: str | None = None
-    qtd: int | None = Field(default=None, ge=0)
+    qtd: Optional[int] = None
     piq_origem: str | None = None
     piq_destino: str | None = None
     obs: str | None = None
