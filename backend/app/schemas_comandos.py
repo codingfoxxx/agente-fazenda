@@ -6,10 +6,13 @@ from pydantic import BaseModel, Field
 class CriarComandoRequest(BaseModel):
     tipo: Literal[
         "EDITAR_QUANTIDADE",
+        "ADICIONAR_QUANTIDADE",
         "TRANSFERIR_PIQUETE",
         "TRANSFERIR_FAZENDA",
         "AVANCAR_CATEGORIA",
         "VOLTAR_CATEGORIA",
+        "EXECUTAR_AGORA",
+    
     ]
     payload: dict[str, Any]
     mensagem_original: Optional[str] = None
