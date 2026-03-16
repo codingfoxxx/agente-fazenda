@@ -7,10 +7,7 @@ from .api.routes_comandos import router as comandos_router
 from .config import get_settings
 from .db import init_db
 
-app.include_router(estoque_router)
-
 settings = get_settings()
-
 app = FastAPI(
     title=settings.app_name,
     version="1.0.0",
@@ -32,12 +29,11 @@ app.add_middleware(
 app.include_router(logs_router)
 app.include_router(consulta_router)
 app.include_router(comandos_router)
-
+app.include_router(estoque_router)
 
 @app.on_event("startup")
 def on_startup() -> None:
     init_db()
-
 
 @app.get("/healthz")
 def healthz() -> dict[str, str]:
@@ -46,9 +42,3 @@ def healthz() -> dict[str, str]:
         "app": settings.app_name,
         "environment": settings.environment,
     }
-
-def init_db() -> None:
-    from . import models  # noqa: F401
-    from . import models_comandos  # noqa: F401
-    from . import models_estoque  # noqa: F401
-    Base.metadata.create_all(bind=engine)
